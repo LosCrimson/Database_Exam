@@ -11,7 +11,8 @@ namespace Student_Database_Exam.Repository.Interfaces
     public interface IClassesRepo
     {
         Class GetClassById (int id);
-        List<Department> GetClassDepartments (Class classVar);
+        Class GetClassByName(string name);
+        List<Department> GetDepartmentsOfAClass(Class classVar);
         void AddClass(Class classVar);
     }
 }

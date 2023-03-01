@@ -10,8 +10,11 @@ namespace Student_Database_Exam.Repository.Interfaces
     public interface IStudentsRepo
     {
         Student GetStudentById (int id);
-        List<Class> GetStudentClasses(Student student);
-        Department GetStudentDepartment (Student student);
+        Student GetStudentByName(string name);
+        Student GetStudentByLastName(string name);
+        List<Class> GetClassesOfAStudent(Student student);
+        Department GetDepartmentOfAStudent (Student student);
         void AddStudent(Student student);
+
     }
 }

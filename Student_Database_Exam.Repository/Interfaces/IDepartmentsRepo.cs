@@ -10,8 +10,9 @@ namespace Student_Database_Exam.Repository.Interfaces
     public interface IDepartmentsRepo
     {
         Department GetDepartmentById (int id);
-        List<Student> GetDeparmentStudents(Department department);
-        List<Class> GetDepartmentClasses(Department department);
+        Department GetDepartmentByName (string name);
+        List<Student> GetStudentsOfADepartment(Department department);
+        List<Class> GetClassesOfADepartment(Department department);
         void AddDepartment(Department department);
     }
 }
