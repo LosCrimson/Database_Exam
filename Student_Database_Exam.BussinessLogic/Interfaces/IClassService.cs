@@ -9,7 +9,7 @@ namespace Student_Database_Exam.BussinessLogic.Interfaces
 {
     public interface IClassService
     {
-        void AddClassessToDepartment(List<string> name, List<Department> department);
+        void AddClassessToDepartment(List<Class> classList, Department department);
         void CreateClassAndAddToDepartment(string name, List<Department> department);
         Class GetClassById(int id);
         Class GetClassByName(string name);

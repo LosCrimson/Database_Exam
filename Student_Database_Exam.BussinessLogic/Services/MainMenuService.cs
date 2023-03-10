@@ -35,10 +35,10 @@ namespace Student_Database_Exam.BussinessLogic.Services
                         _uiService.CreateDepartment();
                         break;
                     case ActionTypes.AddStudentsAndOrClassesToDepartment:
-
+                        _uiService.AddStudentsAndOrClassesToDepartment();
                         break;
                     case ActionTypes.CreateClassAndAddToDepartment:
-
+                        _uiService.CreateClassAndAddToDepartment();
                         break;
                     case ActionTypes.CreateStudentAndAddtoDepartmentWithClasses:
 

@@ -1,6 +1,7 @@
 ﻿using Student_Database_Exam.BussinessLogic.Interfaces;
 using Student_Database_Exam.Repository.Interfaces;
 using Student_Database_Exam.Repository.Models;
+using Student_Database_Exam.Repository.Repos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,20 +13,18 @@ namespace Student_Database_Exam.BussinessLogic.Services
     public class ClassService : IClassService
     {
         private readonly IClassesRepo _classesRepo;
-        public ClassService(IClassesRepo classesRepo)
+        private readonly IDepartmentService _departmentService;
+        public ClassService(IClassesRepo classesRepo, IDepartmentService departmentService)
         {
             _classesRepo = classesRepo;
+            _departmentService = departmentService;
         }
-        public void AddClassessToDepartment(List<string> names, List<Department> departments)
+        public void AddClassessToDepartment(List<Class> classList, Department department)
         {
-            var classes = new List<Class>();
-            foreach (string name in names) 
+            foreach (var classItem in classList)
             {
-                classes.Add(new Class(name, departments));
-            }
-            foreach (var newClass in classes)
-            {
-                _classesRepo.AddClass(newClass);
+                classItem.Departments.Add(department);
+                _classesRepo.AddClass(classItem);
             }
         }
 

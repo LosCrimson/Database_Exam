@@ -48,5 +48,7 @@ namespace Student_Database_Exam.BussinessLogic.Services
         {
             return _departmentsRepo.GetDepartmentsList();
         }
+
+
     }
 }

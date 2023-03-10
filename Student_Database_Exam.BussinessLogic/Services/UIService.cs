@@ -22,12 +22,149 @@ namespace Student_Database_Exam.BussinessLogic.Services
         }
         public void AddStudentsAndOrClassesToDepartment()
         {
-            throw new NotImplementedException();
+            try
+            {
+                Console.WriteLine($"Do you want to add [1]Students or [2]Classes to department?");
+                Console.WriteLine($"Please enter the option number: ");
+                string option = Console.ReadLine();
+                if (option == "1")
+                {
+                    try
+                    {
+                        //Add students
+                        Console.WriteLine($"-----------------------------------------");
+                        PrintAllStudents(_studentService.GetStudentsList());
+                        Console.WriteLine("Please select students which will bee added: ");
+                        Console.WriteLine("By writing the ID's");
+                        var studentIdList = new List<int>();
+                        while(true)
+                        { 
+                            try
+                            {
+                                int studentId = int.Parse(Console.ReadLine());
+                                studentIdList.Add(studentId);
+                                Console.WriteLine("Press enter to stop.");
+                            }
+                            catch { break; }
+                        }
+                        studentIdList.Distinct();
+                        studentIdList.RemoveAll(x => x > _studentService.GetStudentsList().Count);
+                        studentIdList.Sort();
+                        Console.WriteLine("Duplicates were removed and non existant Id's as well.");
+                        Console.WriteLine("Here is the list: ");
+                        var studentList = new List<Student>();
+                        foreach(int studentId in studentIdList)
+                        {
+                            var student = _studentService.GetStudentById(studentId);
+                            studentList.Add(student);
+                        }
+                        Console.WriteLine($"-----------------------------------------");
+                        PrintAllStudents(studentList);
+                        Console.WriteLine("Please enter department number you want the students to be added to: ");
+                        Console.WriteLine($"-----------------------------------------");
+                        PrintAllDepartments(_departmentService.GetDepartmentsList());
+                        Department department = new Department();
+                        try
+                        {
+                            int departmentId = int.Parse(Console.ReadLine());
+                            department = _departmentService.GetDepartmentById(departmentId);
+                        }
+                        catch
+                        {Console.WriteLine("Something went wrong selecting Department.");}
+                        _studentService.AddStudentsToDepartment(studentList, department);
+                        Console.WriteLine($"-----------------------------------------");
+                        PrintAllStudents(department.Students);
+                    }
+                    catch { Console.WriteLine($"Something went wrong adding Students"); }
+                }
+                else if (option == "2")
+                {
+                    try
+                    {
+                        //Add classes
+                        Console.WriteLine($"-----------------------------------------");
+                        PrintAllClasses(_classService.GetClassesList());
+                        Console.WriteLine("Please select classes which will bee added: ");
+                        Console.WriteLine("By writing the ID's");
+                        var classIdList = new List<int>();
+                        while (true)
+                        {
+                            try
+                            {
+                                int classId = int.Parse(Console.ReadLine());
+                                classIdList.Add(classId);
+                                Console.WriteLine("Press enter to stop.");
+                            }
+                            catch { break; }
+                        }
+                        classIdList.Distinct();
+                        classIdList.RemoveAll(x => x > _classService.GetClassesList().Count);
+                        classIdList.Sort();
+                        Console.WriteLine("Duplicates were removed and non existant Id's as well.");
+                        Console.WriteLine("Here is the list: ");
+                        var classList = new List<Class>();
+                        foreach (int classId in classIdList)
+                        {
+                            var classItem = _classService.GetClassById(classId);
+                            classList.Add(classItem);
+                        }
+                        Console.WriteLine($"-----------------------------------------");
+                        PrintAllClasses(classList);
+                        Console.WriteLine("Please enter department number you want the students to be added to: ");
+                        Console.WriteLine($"-----------------------------------------");
+                        PrintAllDepartments(_departmentService.GetDepartmentsList());
+                        Department department = new Department();
+                        try
+                        {
+                            int departmentId = int.Parse(Console.ReadLine());
+                            department = _departmentService.GetDepartmentById(departmentId);
+                        }
+                        catch
+                        { Console.WriteLine("Something went wrong selecting Department."); }
+                        _classService.AddClassessToDepartment(classList, department);
+                        Console.WriteLine($"-----------------------------------------");
+                        PrintAllClasses(department.Classes);
+                    }
+                    catch { Console.WriteLine($"Something went wrong adding Classes"); }
+                }
+            }
+            catch { Console.WriteLine($"Something went wrong salecting option"); }
         }
 
         public void CreateClassAndAddToDepartment()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Please enter new class name");
+            string newClassName = Console.ReadLine();
+            Console.WriteLine($"-----------------------------------------");
+            PrintAllDepartments(_departmentService.GetDepartmentsList());
+            Console.WriteLine("Please select departments to which the new class will be added: ");
+            Console.WriteLine("By writing the ID's");
+            var departmentIdList = new List<int>();
+            while (true)
+            {
+                try
+                {
+                    int departmentId = int.Parse(Console.ReadLine());
+                    departmentIdList.Add(departmentId);
+                    Console.WriteLine("Press enter to stop.");
+                }
+                catch { break; }
+            }
+            departmentIdList.Distinct();
+            departmentIdList.RemoveAll(x => x > _departmentService.GetDepartmentsList().Count);
+            departmentIdList.Sort();
+            Console.WriteLine("Duplicates were removed and non existant Id's as well.");
+            Console.WriteLine("Here is the list: ");
+            var departmentList = new List<Department>();
+            foreach (int departmentId in departmentIdList)
+            {
+                var department = _departmentService.GetDepartmentById(departmentId);
+                departmentList.Add(department);
+            }
+            Console.WriteLine($"-----------------------------------------");
+            PrintAllDepartments(departmentList);
+            _classService.CreateClassAndAddToDepartment(newClassName, departmentList);
+            Console.WriteLine($"New class {newClassName} created");
         }
 
         public void CreateDepartment()

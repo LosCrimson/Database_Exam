@@ -19,12 +19,13 @@ namespace Student_Database_Exam.BussinessLogic.Services
             _studentsRepo = studentsRepo;
             _departmentService = departmentService;
         }
-        public void AddStudentsToDepartment(List<Student> students)
+        public void AddStudentsToDepartment(List<Student> students, Department department)
         {
             foreach (var student in students)
             {
-                var departmentAndStudentClassesMerged = student.Classes.Union(_departmentService.GetDepartmentById(student.DepartmentOfStudent.Id).Classes).ToList();
-                student.Classes = departmentAndStudentClassesMerged;
+                _departmentService.DeleteStudentFromDepartment(department, student);
+                student.Classes = department.Classes;
+                student.DepartmentOfStudent = department;
                 _studentsRepo.AddStudent(student);
             }
         }
