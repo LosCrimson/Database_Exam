@@ -19,5 +19,11 @@ namespace Student_Database_Exam.Repository.Models
             Students = students;
             Classes = classes;
         }
+        public Department(string name)
+        {
+            Name = name;
+            Students = new List<Student>();
+            Classes = new List<Class>();
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Student_Database_Exam.Repository.Interfaces;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Student_Database_Exam.Repository.Interfaces;
 using Student_Database_Exam.Repository.Models;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,16 @@ namespace Student_Database_Exam.Repository.Repos
             _dbContext.Departments.Add(department);
             _dbContext.SaveChanges();
         }
+        public void DeleteStudentFromDepartment(Department department, Student studentToDelete)
+        {
+            foreach(var student in department.Students) 
+            {
+                if (studentToDelete == student)
+                {
+                    _dbContext.Remove(student);
+                }
+            }
+        }
 
         public List<Class> GetClassesOfADepartment(Department department)
         {
@@ -40,6 +51,11 @@ namespace Student_Database_Exam.Repository.Repos
         public List<Student> GetStudentsOfADepartment(Department department)
         {
             return department.Students;
+        }
+        public List<Department> GetDepartmentsList()
+        {
+            List<Department> list = new List<Department>();
+            return list = _dbContext.Departments.ToList();
         }
     }
 }

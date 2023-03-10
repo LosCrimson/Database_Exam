@@ -15,6 +15,6 @@ namespace Student_Database_Exam.Repository.Interfaces
         List<Class> GetClassesOfAStudent(Student student);
         Department GetDepartmentOfAStudent (Student student);
         void AddStudent(Student student);
-
+        List<Student> GetStudentsList();
     }
 }

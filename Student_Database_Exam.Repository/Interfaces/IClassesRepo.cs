@@ -14,5 +14,6 @@ namespace Student_Database_Exam.Repository.Interfaces
         Class GetClassByName(string name);
         List<Department> GetDepartmentsOfAClass(Class classVar);
         void AddClass(Class classVar);
+        List<Class> GetClassesList();
     }
 }

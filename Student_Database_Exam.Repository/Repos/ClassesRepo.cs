@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Student_Database_Exam.Repository.Models;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Student_Database_Exam.Repository.Repos
 {
@@ -33,6 +34,12 @@ namespace Student_Database_Exam.Repository.Repos
         {
             _dbContext.Classes.Add(classVar);
             _dbContext.SaveChanges();
+        }
+
+        public List<Class> GetClassesList() 
+        {
+            List<Class> list = new List<Class>();
+            return list = _dbContext.Classes.ToList();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Student_Database_Exam.Repository.Interfaces;
 using Student_Database_Exam.Repository.Models;
 using System;
@@ -45,6 +46,11 @@ namespace Student_Database_Exam.Repository.Repos
         public Student GetStudentByLastName(string name)
         {
             return _dbContext.Students.Where<Student>(x => x.LastName == name).FirstOrDefault();
+        }
+        public List<Student> GetStudentsList()
+        {
+            List<Student> list = new List<Student>();
+            return list = _dbContext.Students.ToList();
         }
     }
 }
