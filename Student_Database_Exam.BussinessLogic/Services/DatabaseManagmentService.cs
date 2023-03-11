@@ -34,7 +34,7 @@ namespace Student_Database_Exam.BussinessLogic.Services
             _classService.CreateClassAndAddToDepartment("Math", new List<Department> { _departmentService.GetDepartmentByName("Technology") });
             _classService.CreateClassAndAddToDepartment("English", new List<Department> { _departmentService.GetDepartmentByName("Science") });
             _classService.CreateClassAndAddToDepartment("Physics", new List<Department> { _departmentService.GetDepartmentByName("Math") });
-            _classService.CreateClassAndAddToDepartment("Chemistry", new List<Department> { _departmentService.GetDepartmentByName("Anatchy") });
+            _classService.CreateClassAndAddToDepartment("Chemistry", new List<Department> { _departmentService.GetDepartmentByName("Anarchy") });
             _classService.CreateClassAndAddToDepartment("Electorincs", new List<Department> { _departmentService.GetDepartmentByName("IT") });
             _classService.CreateClassAndAddToDepartment("Robotics", new List<Department> { _departmentService.GetDepartmentByName("Technology"), _departmentService.GetDepartmentByName("Anarchy") });
             _classService.CreateClassAndAddToDepartment("Philosophy", new List<Department> { _departmentService.GetDepartmentByName("Technology"), _departmentService.GetDepartmentByName("IT") });
@@ -45,22 +45,22 @@ namespace Student_Database_Exam.BussinessLogic.Services
         }
         public void CreateStudentsForTesting()
         {
-            _studentService.CreateStudentAndAddtoDepartmentWithClasses("Jonas", "Lazdikas", _departmentService.GetDepartmentByName("Technology"));
-            _studentService.CreateStudentAndAddtoDepartmentWithClasses("Vytenis", "Slepete", _departmentService.GetDepartmentByName("Technology"));
-            _studentService.CreateStudentAndAddtoDepartmentWithClasses("Povilas", "Seilius", _departmentService.GetDepartmentByName("Science"));
-            _studentService.CreateStudentAndAddtoDepartmentWithClasses("Kastytis", "Grossmann", _departmentService.GetDepartmentByName("Science"));
-            _studentService.CreateStudentAndAddtoDepartmentWithClasses("Vidmantas", "Reutner", _departmentService.GetDepartmentByName("Math"));
-            _studentService.CreateStudentAndAddtoDepartmentWithClasses("Haroldas", "Schnaithmann", _departmentService.GetDepartmentByName("Math"));
-            _studentService.CreateStudentAndAddtoDepartmentWithClasses("Bobikas", "Baumann", _departmentService.GetDepartmentByName("Anarchy"));
-            _studentService.CreateStudentAndAddtoDepartmentWithClasses("Stenlis", "King", _departmentService.GetDepartmentByName("Anarchy"));
-            _studentService.CreateStudentAndAddtoDepartmentWithClasses("Piteris", "Karalius", _departmentService.GetDepartmentByName("IT"));
-            _studentService.CreateStudentAndAddtoDepartmentWithClasses("Trevoras", "Duck", _departmentService.GetDepartmentByName("IT"));
-            _studentService.CreateStudentAndAddtoDepartmentWithClasses("Paskalis", "Floorboard", _departmentService.GetDepartmentByName("Anarchy"));
+            _studentService.CreateStudentAndAddtoDepartmentWithClassesButDoNotDelete("Jonas", "Lazdikas", _departmentService.GetDepartmentByName("Technology"));
+            _studentService.CreateStudentAndAddtoDepartmentWithClassesButDoNotDelete("Vytenis", "Slepete", _departmentService.GetDepartmentByName("Technology"));
+            _studentService.CreateStudentAndAddtoDepartmentWithClassesButDoNotDelete("Povilas", "Seilius", _departmentService.GetDepartmentByName("Science"));
+            _studentService.CreateStudentAndAddtoDepartmentWithClassesButDoNotDelete("Kastytis", "Grossmann", _departmentService.GetDepartmentByName("Science"));
+            _studentService.CreateStudentAndAddtoDepartmentWithClassesButDoNotDelete("Vidmantas", "Reutner", _departmentService.GetDepartmentByName("Math"));
+            _studentService.CreateStudentAndAddtoDepartmentWithClassesButDoNotDelete("Haroldas", "Schnaithmann", _departmentService.GetDepartmentByName("Math"));
+            _studentService.CreateStudentAndAddtoDepartmentWithClassesButDoNotDelete("Bobikas", "Baumann", _departmentService.GetDepartmentByName("Anarchy"));
+            _studentService.CreateStudentAndAddtoDepartmentWithClassesButDoNotDelete("Stenlis", "King", _departmentService.GetDepartmentByName("Anarchy"));
+            _studentService.CreateStudentAndAddtoDepartmentWithClassesButDoNotDelete("Piteris", "Karalius", _departmentService.GetDepartmentByName("IT"));
+            _studentService.CreateStudentAndAddtoDepartmentWithClassesButDoNotDelete("Trevoras", "Duck", _departmentService.GetDepartmentByName("IT"));
+            _studentService.CreateStudentAndAddtoDepartmentWithClassesButDoNotDelete("Paskalis", "Floorboard", _departmentService.GetDepartmentByName("Anarchy"));
         }
         public void AskUserToCreateTestingDatabase()
         {
             Console.WriteLine("Would you like to populate the database with testing values?");
-            Console.WriteLine("[1] YES [2] No");
+            Console.WriteLine("[1] YES [2] NO");
             int userAnswer = 2;
             try
             {
@@ -79,7 +79,7 @@ namespace Student_Database_Exam.BussinessLogic.Services
         public void AsKUserAboutDbSettings()
         {
             // Load the appsettings.json file
-            string path = "../Student_Database_Exam/appsettings.json";
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "appsettings.json");
             JObject appSettings = JObject.Parse(File.ReadAllText(path));
 
             // Get the default connection string
@@ -106,8 +106,6 @@ namespace Student_Database_Exam.BussinessLogic.Services
             File.WriteAllText(path, appSettings.ToString());
 
             Console.WriteLine($"Using new server name {newServerName}...");
-            Console.WriteLine("Press any key to continue.");
-            Console.ReadKey();
         }
     }
 }

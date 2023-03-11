@@ -17,5 +17,7 @@ namespace Student_Database_Exam.BussinessLogic.Interfaces
         List<Student> GetStudentsByDepartment(Department department);
         void AddOneStudentToDepartment(Student students, Department department);
         List<Student> GetStudentsList();
+        void CreateStudentAndAddtoDepartmentWithClassesButDoNotDelete(string name, string lastName, Department department);
+        void AddOneStudentToDepartmentButNoDeleation(Student student, Department department);
     }
 }

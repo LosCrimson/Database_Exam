@@ -5,7 +5,7 @@
 namespace Student_Database_Exam.Repository.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class UpdateWithIdAsPrimaryKeys : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -14,12 +14,13 @@ namespace Student_Database_Exam.Repository.Migrations
                 name: "Departments",
                 columns: table => new
                 {
-                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Departments", x => x.Name);
+                    table.PrimaryKey("PK_Departments", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -30,29 +31,31 @@ namespace Student_Database_Exam.Repository.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DepartmentOfStudentName = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    DepartmentOfStudentId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Students", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Students_Departments_DepartmentOfStudentName",
-                        column: x => x.DepartmentOfStudentName,
+                        name: "FK_Students_Departments_DepartmentOfStudentId",
+                        column: x => x.DepartmentOfStudentId,
                         principalTable: "Departments",
-                        principalColumn: "Name");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Classes",
                 columns: table => new
                 {
-                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StudentId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Classes", x => x.Name);
+                    table.PrimaryKey("PK_Classes", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Classes_Students_StudentId",
                         column: x => x.StudentId,
@@ -64,30 +67,30 @@ namespace Student_Database_Exam.Repository.Migrations
                 name: "ClassDepartment",
                 columns: table => new
                 {
-                    ClassesName = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    DepartmentsName = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    ClassesId = table.Column<int>(type: "int", nullable: false),
+                    DepartmentsId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ClassDepartment", x => new { x.ClassesName, x.DepartmentsName });
+                    table.PrimaryKey("PK_ClassDepartment", x => new { x.ClassesId, x.DepartmentsId });
                     table.ForeignKey(
-                        name: "FK_ClassDepartment_Classes_ClassesName",
-                        column: x => x.ClassesName,
+                        name: "FK_ClassDepartment_Classes_ClassesId",
+                        column: x => x.ClassesId,
                         principalTable: "Classes",
-                        principalColumn: "Name",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ClassDepartment_Departments_DepartmentsName",
-                        column: x => x.DepartmentsName,
+                        name: "FK_ClassDepartment_Departments_DepartmentsId",
+                        column: x => x.DepartmentsId,
                         principalTable: "Departments",
-                        principalColumn: "Name",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ClassDepartment_DepartmentsName",
+                name: "IX_ClassDepartment_DepartmentsId",
                 table: "ClassDepartment",
-                column: "DepartmentsName");
+                column: "DepartmentsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Classes_StudentId",
@@ -95,9 +98,9 @@ namespace Student_Database_Exam.Repository.Migrations
                 column: "StudentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Students_DepartmentOfStudentName",
+                name: "IX_Students_DepartmentOfStudentId",
                 table: "Students",
-                column: "DepartmentOfStudentName");
+                column: "DepartmentOfStudentId");
         }
 
         /// <inheritdoc />

@@ -24,31 +24,35 @@ namespace Student_Database_Exam.Repository.Migrations
 
             modelBuilder.Entity("ClassDepartment", b =>
                 {
-                    b.Property<string>("ClassesName")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("ClassesId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("DepartmentsName")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("DepartmentsId")
+                        .HasColumnType("int");
 
-                    b.HasKey("ClassesName", "DepartmentsName");
+                    b.HasKey("ClassesId", "DepartmentsId");
 
-                    b.HasIndex("DepartmentsName");
+                    b.HasIndex("DepartmentsId");
 
                     b.ToTable("ClassDepartment");
                 });
 
             modelBuilder.Entity("Student_Database_Exam.Repository.Models.Class", b =>
                 {
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("StudentId")
                         .HasColumnType("int");
 
-                    b.HasKey("Name");
+                    b.HasKey("Id");
 
                     b.HasIndex("StudentId");
 
@@ -57,13 +61,17 @@ namespace Student_Database_Exam.Repository.Migrations
 
             modelBuilder.Entity("Student_Database_Exam.Repository.Models.Department", b =>
                 {
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.HasKey("Name");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
 
                     b.ToTable("Departments");
                 });
@@ -76,8 +84,8 @@ namespace Student_Database_Exam.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("DepartmentOfStudentName")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("DepartmentOfStudentId")
+                        .HasColumnType("int");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -89,7 +97,7 @@ namespace Student_Database_Exam.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DepartmentOfStudentName");
+                    b.HasIndex("DepartmentOfStudentId");
 
                     b.ToTable("Students");
                 });
@@ -98,13 +106,13 @@ namespace Student_Database_Exam.Repository.Migrations
                 {
                     b.HasOne("Student_Database_Exam.Repository.Models.Class", null)
                         .WithMany()
-                        .HasForeignKey("ClassesName")
+                        .HasForeignKey("ClassesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Student_Database_Exam.Repository.Models.Department", null)
                         .WithMany()
-                        .HasForeignKey("DepartmentsName")
+                        .HasForeignKey("DepartmentsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -120,7 +128,9 @@ namespace Student_Database_Exam.Repository.Migrations
                 {
                     b.HasOne("Student_Database_Exam.Repository.Models.Department", "DepartmentOfStudent")
                         .WithMany("Students")
-                        .HasForeignKey("DepartmentOfStudentName");
+                        .HasForeignKey("DepartmentOfStudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("DepartmentOfStudent");
                 });

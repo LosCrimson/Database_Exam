@@ -327,7 +327,7 @@ namespace Student_Database_Exam.BussinessLogic.Services
                 Console.WriteLine($"-----------------------------------------");
                 PrintAllDepartments(_departmentService.GetDepartmentsList());
                 Console.WriteLine("Enter name of department you want to see the Students of:");
-                string departmentName = Console.ReadLine();
+                var departmentName = Console.ReadLine();
                 var department = _departmentService.GetDepartmentByName(departmentName);
                 PrintAllStudents(department.Students);
             }
@@ -337,7 +337,7 @@ namespace Student_Database_Exam.BussinessLogic.Services
         {
             foreach (var student in students)
             {
-                Console.WriteLine($"[{student.Id}] {student.Name} {student.LastName} Department: {student.DepartmentOfStudent}");
+                Console.WriteLine($"[{student.Id}] {student.Name} {student.LastName} Department: {student.DepartmentOfStudent.Name}");
             }
             Console.WriteLine($"-----------------------------------------");
         }

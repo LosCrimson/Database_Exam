@@ -43,6 +43,20 @@ namespace Student_Database_Exam.BussinessLogic.Services
             AddOneStudentToDepartment(student, department);
         }
 
+        //Is needed for initial creation
+        public void AddOneStudentToDepartmentButNoDeleation(Student student, Department department)
+        {
+            student.Classes = department.Classes;
+            student.DepartmentOfStudent = department;
+            _studentsRepo.AddStudent(student);
+        }
+
+        public void CreateStudentAndAddtoDepartmentWithClassesButDoNotDelete(string name, string lastName, Department department)
+        {
+            var student = new Student(name, lastName, new List<Class>(), department);
+            AddOneStudentToDepartmentButNoDeleation(student, department);
+        }
+        //-------------------------------------------------------------------------------------------------------------------------
         public Student GetStudentById(int id)
         {
             Student student = _studentsRepo.GetStudentById(id);

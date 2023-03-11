@@ -13,7 +13,6 @@ namespace Student_Database_Exam.Repository.Repos
     public class StudentsRepo : IStudentsRepo
     {
         private readonly Student_Database_ExamDbContext _dbContext;
-
         public StudentsRepo(Student_Database_ExamDbContext dbContext)
         {
             _dbContext = dbContext;
@@ -49,8 +48,7 @@ namespace Student_Database_Exam.Repository.Repos
         }
         public List<Student> GetStudentsList()
         {
-            List<Student> list = new List<Student>();
-            return list = _dbContext.Students.ToList();
+            return _dbContext.Students.ToList();
         }
     }
 }
