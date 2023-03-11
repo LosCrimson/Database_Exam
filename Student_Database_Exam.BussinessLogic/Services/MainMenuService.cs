@@ -11,12 +11,16 @@ namespace Student_Database_Exam.BussinessLogic.Services
     public class MainMenuService : IMainMenuService
     {
         private readonly IUIService _uiService;
-        public MainMenuService(IUIService uiService)
+        private readonly IDatabaseManagmentService _databaseManagmentService;
+        public MainMenuService(IUIService uiService, IDatabaseManagmentService databaseManagmentService)
         {
             _uiService = uiService;
+            _databaseManagmentService = databaseManagmentService;
         }
         public void MainMenu()
         {
+            _databaseManagmentService.AsKUserAboutDbSettings();
+            _databaseManagmentService.AskUserToCreateTestingDatabase();
 
             while (true)
             {
@@ -41,10 +45,10 @@ namespace Student_Database_Exam.BussinessLogic.Services
                         _uiService.CreateClassAndAddToDepartment();
                         break;
                     case ActionTypes.CreateStudentAndAddtoDepartmentWithClasses:
-
+                        _uiService.CreateStudentAndAddtoDepartmentWithClasses();
                         break;
                     case ActionTypes.MoveStudentToAnotherDepartment:
-
+                        _uiService.MoveStudentToAnotherDepartment();
                         break;
                     case ActionTypes.EXIT:
                         return;

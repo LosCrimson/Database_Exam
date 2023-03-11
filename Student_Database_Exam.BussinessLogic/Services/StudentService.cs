@@ -29,17 +29,18 @@ namespace Student_Database_Exam.BussinessLogic.Services
                 _studentsRepo.AddStudent(student);
             }
         }
-        public void AddOneStudentToDepartment(Student student)
+        public void AddOneStudentToDepartment(Student student, Department department)
         {
-                var departmentAndStudentClassesMerged = student.Classes.Union(_departmentService.GetDepartmentById(student.DepartmentOfStudent.Id).Classes).ToList();
-                student.Classes = departmentAndStudentClassesMerged;
-                _studentsRepo.AddStudent(student);
+            _departmentService.DeleteStudentFromDepartment(department, student);
+            student.Classes = department.Classes; 
+            student.DepartmentOfStudent = department;
+            _studentsRepo.AddStudent(student);
         }
 
         public void CreateStudentAndAddtoDepartmentWithClasses(string name, string lastName, Department department)
         {
             var student = new Student(name, lastName, new List<Class>(), department);
-            AddOneStudentToDepartment(student);
+            AddOneStudentToDepartment(student, department);
         }
 
         public Student GetStudentById(int id)
@@ -65,13 +66,6 @@ namespace Student_Database_Exam.BussinessLogic.Services
             return department.Students;
         }
 
-        public void MoveStudentToAnotherDepartment(Student student, Department department)
-        {
-            _departmentService.DeleteStudentFromDepartment(department, student);
-            student.Classes = new List<Class>();
-            student.DepartmentOfStudent = department;
-            AddOneStudentToDepartment(student);
-        }
         public List<Student> GetStudentsList()
         {
             return _studentsRepo.GetStudentsList();

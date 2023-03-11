@@ -185,7 +185,18 @@ namespace Student_Database_Exam.BussinessLogic.Services
 
         public void CreateStudentAndAddtoDepartmentWithClasses()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Please enter the name of new student: ");
+            var name = Console.ReadLine();
+            Console.WriteLine("Please enter the lastname of new student: ");
+            var lastname = Console.ReadLine();
+            Console.WriteLine($"-----------------------------------------");
+            PrintAllDepartments(_departmentService.GetDepartmentsList());
+            Console.WriteLine("Please enter name of department you want to move the student to: ");
+            string departmentName = Console.ReadLine();
+            var department = _departmentService.GetDepartmentByName(departmentName);
+            _studentService.CreateStudentAndAddtoDepartmentWithClasses(name, lastname, department);
+            Console.WriteLine($"-----------------------------------------");
+            PrintAllStudents(department.Students);
         }
 
         public ActionTypes GetActionType()
@@ -235,7 +246,42 @@ namespace Student_Database_Exam.BussinessLogic.Services
 
         public void MoveStudentToAnotherDepartment()
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"-----------------------------------------");
+            PrintAllStudents(_studentService.GetStudentsList());
+            Console.WriteLine("Please select student which you want to move: ");
+            Console.WriteLine("By writing the ID");
+            int studentId = 0;
+                try
+                {
+                    studentId = int.Parse(Console.ReadLine());
+                    while (studentId > _studentService.GetStudentsList().Count) 
+                    {
+                    Console.WriteLine("Seems like you enter a non existant Id. Try again: ");
+                    studentId = int.Parse(Console.ReadLine());
+                }
+                }
+                catch { Console.WriteLine("Seems like the inputs id is invalid"); }
+            var student = _studentService.GetStudentById(studentId);
+            Console.WriteLine($"Selected student: [{student.Id}] {student.Name} {student.LastName}");
+
+            Console.WriteLine($"-----------------------------------------");
+            PrintAllDepartments(_departmentService.GetDepartmentsList());
+            Console.WriteLine("Please select department to which you want to move the student: ");
+            Console.WriteLine("By writing the ID");
+            int departmentId = 0;
+            try
+            {
+                departmentId = int.Parse(Console.ReadLine());
+                while (departmentId > _departmentService.GetDepartmentsList().Count)
+                {
+                    Console.WriteLine("Seems like you enter a non existant Id. Try again: ");
+                    departmentId = int.Parse(Console.ReadLine());
+                }
+            }
+            catch { Console.WriteLine("Seems like the inputs id is invalid"); }
+            var department = _departmentService.GetDepartmentById(departmentId);
+            Console.WriteLine($"Selected department: [{department.Id}] {department.Name}");
+            _studentService.AddOneStudentToDepartment(student, department);
         }
 
         public void ShowAllClassesInDepartment()

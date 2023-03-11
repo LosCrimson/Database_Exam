@@ -11,12 +11,11 @@ namespace Student_Database_Exam.BussinessLogic.Interfaces
     {
         void AddStudentsToDepartment(List<Student> students, Department department);
         void CreateStudentAndAddtoDepartmentWithClasses(string name, string lastName, Department department);
-        void MoveStudentToAnotherDepartment(Student student, Department department);
         Student GetStudentById(int id);
         Student GetStudentByName(string name);
         Student GetStudentByLastName(string lastName);
         List<Student> GetStudentsByDepartment(Department department);
-        void AddOneStudentToDepartment(Student students);
+        void AddOneStudentToDepartment(Student students, Department department);
         List<Student> GetStudentsList();
     }
 }
