@@ -15,7 +15,7 @@ namespace Student_Database_Exam.BussinessLogic.Services
         private readonly IDepartmentService _departmentService;
         private readonly IClassService _classService;
         private readonly IStudentService _studentService;
-        DatabaseManagmentService(DepartmentService departmentService, IClassService classService, IStudentService studentService)
+        public DatabaseManagmentService(DepartmentService departmentService, IClassService classService, IStudentService studentService)
         {
             _departmentService = departmentService;
             _classService = classService;

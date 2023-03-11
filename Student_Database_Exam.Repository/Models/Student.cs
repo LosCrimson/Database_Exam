@@ -22,5 +22,6 @@ namespace Student_Database_Exam.Repository.Models
             Classes = classes;
             DepartmentOfStudent = departmentOfStudent;
         }
+        public Student() { }
     }
 }
