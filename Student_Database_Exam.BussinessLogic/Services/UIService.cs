@@ -110,7 +110,7 @@ namespace Student_Database_Exam.BussinessLogic.Services
                         }
                         Console.WriteLine($"-----------------------------------------");
                         PrintAllClasses(classList);
-                        Console.WriteLine("Please enter department number you want the students to be added to: ");
+                        Console.WriteLine("Please enter department number you want the classes to be added to: ");
                         Console.WriteLine($"-----------------------------------------");
                         PrintAllDepartments(_departmentService.GetDepartmentsList());
                         Department department = new Department();
@@ -315,7 +315,7 @@ namespace Student_Database_Exam.BussinessLogic.Services
                 Console.WriteLine("Enter name of student you want to see the Classes of:");
                 string studentName = Console.ReadLine();
                 var student = _studentService.GetStudentByName(studentName);
-                PrintAllClasses(student.Classes);
+                PrintAllClasses(student.DepartmentOfStudent.Classes);
             }
             catch { Console.WriteLine("This student is not valid or does not exist"); }
         }

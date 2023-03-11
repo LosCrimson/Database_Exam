@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Student_Database_Exam.Repository.Interfaces;
 using Student_Database_Exam.Repository.Models;
 using System;
@@ -24,13 +25,17 @@ namespace Student_Database_Exam.Repository.Repos
         }
         public void DeleteStudentFromDepartment(Department department, Student studentToDelete)
         {
-            foreach(var student in department.Students) 
+            try
             {
-                if (studentToDelete == student)
+                foreach (var student in studentToDelete.DepartmentOfStudent.Students)
                 {
-                    _dbContext.Remove(student);
+                    if (studentToDelete == student)
+                    {
+                        _dbContext.Remove(student);
+                    }
                 }
             }
+            catch { Console.WriteLine("Seems like department is empty"); }
         }
 
         public List<Class> GetClassesOfADepartment(Department department)
@@ -54,8 +59,7 @@ namespace Student_Database_Exam.Repository.Repos
         }
         public List<Department> GetDepartmentsList()
         {
-            List<Department> list = new List<Department>();
-            return list = _dbContext.Departments.ToList();
+            return _dbContext.Departments.Include(x => x.Students).Include(x => x.Classes).ToList();
         }
     }
 }

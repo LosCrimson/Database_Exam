@@ -24,36 +24,42 @@ namespace Student_Database_Exam.BussinessLogic.Services
             foreach (var student in students)
             {
                 _departmentService.DeleteStudentFromDepartment(department, student);
-                student.Classes = department.Classes;
+                student.DepartmentOfStudent.Classes = department.Classes;
                 student.DepartmentOfStudent = department;
                 _studentsRepo.AddStudent(student);
             }
         }
         public void AddOneStudentToDepartment(Student student, Department department)
         {
-            _departmentService.DeleteStudentFromDepartment(department, student);
-            student.Classes = department.Classes; 
+            try
+            {
+                _departmentService.DeleteStudentFromDepartment(department, student);
+            }
+            catch { Console.WriteLine("Seems like department has no students"); }
+            try
+            { student.DepartmentOfStudent.Classes = department.Classes; }
+            catch { Console.WriteLine("Seems like department has no classes and Student has no classes"); }
             student.DepartmentOfStudent = department;
             _studentsRepo.AddStudent(student);
         }
 
         public void CreateStudentAndAddtoDepartmentWithClasses(string name, string lastName, Department department)
         {
-            var student = new Student(name, lastName, new List<Class>(), department);
-            AddOneStudentToDepartment(student, department);
+            var student = new Student(name, lastName, department);
+            AddOneStudentToDepartmentButNoDeleation(student, department);
         }
 
-        //Is needed for initial creation
+        //Is needed for initial creation--------------------------------------------------------------------------------------------
         public void AddOneStudentToDepartmentButNoDeleation(Student student, Department department)
         {
-            student.Classes = department.Classes;
+            student.DepartmentOfStudent.Classes = department.Classes;
             student.DepartmentOfStudent = department;
             _studentsRepo.AddStudent(student);
         }
 
         public void CreateStudentAndAddtoDepartmentWithClassesButDoNotDelete(string name, string lastName, Department department)
         {
-            var student = new Student(name, lastName, new List<Class>(), department);
+            var student = new Student(name, lastName, department);
             AddOneStudentToDepartmentButNoDeleation(student, department);
         }
         //-------------------------------------------------------------------------------------------------------------------------

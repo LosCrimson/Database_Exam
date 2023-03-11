@@ -13,14 +13,11 @@ namespace Student_Database_Exam.Repository.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
-        public List<Class> Classes { get; set; }
         public Department DepartmentOfStudent { get; set; }
-
-        public Student(string name, string lastName, List<Class> classes, Department departmentOfStudent) 
+        public Student(string name, string lastName, Department departmentOfStudent) 
         {
             Name = name;
             LastName = lastName;
-            Classes = classes;
             DepartmentOfStudent = departmentOfStudent;
         }
         public Student() { }

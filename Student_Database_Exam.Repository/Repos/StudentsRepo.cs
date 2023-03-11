@@ -25,7 +25,7 @@ namespace Student_Database_Exam.Repository.Repos
 
         public List<Class> GetClassesOfAStudent(Student student)
         {
-            return student.Classes;
+            return student.DepartmentOfStudent.Classes;
         }
 
         public Department GetDepartmentOfAStudent(Student student)
@@ -48,7 +48,7 @@ namespace Student_Database_Exam.Repository.Repos
         }
         public List<Student> GetStudentsList()
         {
-            return _dbContext.Students.ToList();
+            return _dbContext.Students.Include(x => x.DepartmentOfStudent).Include(x => x.DepartmentOfStudent.Classes).ToList();
         }
     }
 }

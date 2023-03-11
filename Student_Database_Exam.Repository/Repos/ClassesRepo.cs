@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Student_Database_Exam.Repository.Models;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.EntityFrameworkCore;
 
 namespace Student_Database_Exam.Repository.Repos
 {
@@ -38,8 +39,7 @@ namespace Student_Database_Exam.Repository.Repos
 
         public List<Class> GetClassesList() 
         {
-            List<Class> list = new List<Class>();
-            return list = _dbContext.Classes.ToList();
+            return _dbContext.Classes.Include(x => x.Departments).ToList();
         }
     }
 }
