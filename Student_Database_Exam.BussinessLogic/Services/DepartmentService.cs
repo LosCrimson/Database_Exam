@@ -1,13 +1,6 @@
 ﻿using Student_Database_Exam.BussinessLogic.Interfaces;
-using Student_Database_Exam.Repository;
 using Student_Database_Exam.Repository.Interfaces;
 using Student_Database_Exam.Repository.Models;
-using Student_Database_Exam.Repository.Repos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Student_Database_Exam.BussinessLogic.Services
 {
@@ -24,7 +17,7 @@ namespace Student_Database_Exam.BussinessLogic.Services
             _departmentsRepo.AddDepartment(department);
         }
 
-        public void DeleteStudentFromDepartment(Department department,Student student)
+        public void DeleteStudentFromDepartment(Department department, Student student)
         {
             _departmentsRepo.DeleteStudentFromDepartment(department, student);
         }

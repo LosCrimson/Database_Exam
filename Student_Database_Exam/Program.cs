@@ -1,15 +1,12 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using System;
-using Student_Database_Exam.Repository;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
-using Student_Database_Exam.Repository.Interfaces;
-using Student_Database_Exam.Repository.Repos;
+using Microsoft.Extensions.Hosting;
 using Student_Database_Exam.BussinessLogic.Interfaces;
 using Student_Database_Exam.BussinessLogic.Services;
-using Student_Database_Exam.Repository.Models;
+using Student_Database_Exam.Repository;
+using Student_Database_Exam.Repository.Interfaces;
+using Student_Database_Exam.Repository.Repos;
 
 namespace Student_Database_Exam
 {

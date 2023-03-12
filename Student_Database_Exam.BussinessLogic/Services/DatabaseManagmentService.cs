@@ -1,12 +1,6 @@
-﻿using Student_Database_Exam.BussinessLogic.Interfaces;
+﻿using Newtonsoft.Json.Linq;
+using Student_Database_Exam.BussinessLogic.Interfaces;
 using Student_Database_Exam.Repository.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using Newtonsoft.Json.Linq;
 
 namespace Student_Database_Exam.BussinessLogic.Services
 {
@@ -66,8 +60,8 @@ namespace Student_Database_Exam.BussinessLogic.Services
             {
                 userAnswer = int.Parse(Console.ReadLine());
             }
-            catch { Console.WriteLine("Invalid input so selecting No[2].");}
-            if (userAnswer == 1) 
+            catch { Console.WriteLine("Invalid input so selecting No[2]."); }
+            if (userAnswer == 1)
             {
                 CreateDepartmentsForTesting();
                 CreateClassesForTesting();

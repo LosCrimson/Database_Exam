@@ -1,10 +1,5 @@
 ﻿using Student_Database_Exam.BussinessLogic.Interfaces;
 using Student_Database_Exam.Repository.Enum;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Student_Database_Exam.BussinessLogic.Services
 {
@@ -19,8 +14,8 @@ namespace Student_Database_Exam.BussinessLogic.Services
         }
         public void MainMenu()
         {
-            //_databaseManagmentService.AsKUserAboutDbSettings();
-            //_databaseManagmentService.AskUserToCreateTestingDatabase();
+            _databaseManagmentService.AsKUserAboutDbSettings();
+            _databaseManagmentService.AskUserToCreateTestingDatabase();
 
             while (true)
             {

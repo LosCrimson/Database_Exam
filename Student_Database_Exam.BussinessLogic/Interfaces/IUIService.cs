@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Student_Database_Exam.Repository.Enum;
 using Student_Database_Exam.Repository.Models;
-using Student_Database_Exam.Repository.Enum;
 
 namespace Student_Database_Exam.BussinessLogic.Interfaces
 {

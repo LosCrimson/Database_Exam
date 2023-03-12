@@ -1,11 +1,6 @@
 ﻿using Student_Database_Exam.BussinessLogic.Interfaces;
 using Student_Database_Exam.Repository.Enum;
 using Student_Database_Exam.Repository.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Student_Database_Exam.BussinessLogic.Services
 {
@@ -37,8 +32,8 @@ namespace Student_Database_Exam.BussinessLogic.Services
                         Console.WriteLine("Please select students which will bee added: ");
                         Console.WriteLine("By writing the ID's");
                         var studentIdList = new List<int>();
-                        while(true)
-                        { 
+                        while (true)
+                        {
                             try
                             {
                                 int studentId = int.Parse(Console.ReadLine());
@@ -53,7 +48,7 @@ namespace Student_Database_Exam.BussinessLogic.Services
                         Console.WriteLine("Duplicates were removed and non existant Id's as well.");
                         Console.WriteLine("Here is the list: ");
                         var studentList = new List<Student>();
-                        foreach(int studentId in studentIdList)
+                        foreach (int studentId in studentIdList)
                         {
                             var student = _studentService.GetStudentById(studentId);
                             studentList.Add(student);
@@ -70,7 +65,7 @@ namespace Student_Database_Exam.BussinessLogic.Services
                             department = _departmentService.GetDepartmentById(departmentId);
                         }
                         catch
-                        {Console.WriteLine("Something went wrong selecting Department.");}
+                        { Console.WriteLine("Something went wrong selecting Department."); }
                         _studentService.AddStudentsToDepartment(studentList, department);
                         Console.WriteLine($"-----------------------------------------");
                         PrintAllStudents(department.Students);
@@ -170,7 +165,7 @@ namespace Student_Database_Exam.BussinessLogic.Services
         public void CreateDepartment()
         {
             try
-                {
+            {
                 //Print the list of departmens so that the user would see the change.
                 Console.WriteLine($"-----------------------------------------");
                 PrintAllDepartments(_departmentService.GetDepartmentsList());
@@ -180,7 +175,7 @@ namespace Student_Database_Exam.BussinessLogic.Services
                 Console.WriteLine($"-----------------------------------------");
                 PrintAllDepartments(_departmentService.GetDepartmentsList());
             }
-            catch { Console.WriteLine("Something went wrong");}
+            catch { Console.WriteLine("Something went wrong"); }
         }
 
         public void CreateStudentAndAddtoDepartmentWithClasses()
@@ -251,16 +246,16 @@ namespace Student_Database_Exam.BussinessLogic.Services
             Console.WriteLine("Please select student which you want to move: ");
             Console.WriteLine("By writing the ID");
             int studentId = 0;
-                try
+            try
+            {
+                studentId = int.Parse(Console.ReadLine());
+                while (studentId > _studentService.GetStudentsList().Count)
                 {
-                    studentId = int.Parse(Console.ReadLine());
-                    while (studentId > _studentService.GetStudentsList().Count) 
-                    {
                     Console.WriteLine("Seems like you enter a non existant Id. Try again: ");
                     studentId = int.Parse(Console.ReadLine());
                 }
-                }
-                catch { Console.WriteLine("Seems like the inputs id is invalid"); }
+            }
+            catch { Console.WriteLine("Seems like the inputs id is invalid"); }
             var student = _studentService.GetStudentById(studentId);
             Console.WriteLine($"Selected student: [{student.Id}] {student.Name} {student.LastName}");
 
@@ -297,7 +292,7 @@ namespace Student_Database_Exam.BussinessLogic.Services
             }
             catch { Console.WriteLine("This department is not valid or does not exist"); }
         }
-        public void PrintAllClasses(List<Class> classes) 
+        public void PrintAllClasses(List<Class> classes)
         {
             foreach (var classItem in classes)
             {

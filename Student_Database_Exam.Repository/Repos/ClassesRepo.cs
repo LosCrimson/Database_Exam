@@ -1,12 +1,6 @@
-﻿using Student_Database_Exam.Repository.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using Student_Database_Exam.Repository.Interfaces;
 using Student_Database_Exam.Repository.Models;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.EntityFrameworkCore;
 
 namespace Student_Database_Exam.Repository.Repos
 {
@@ -23,7 +17,7 @@ namespace Student_Database_Exam.Repository.Repos
         {
             return _dbContext.Classes.Where<Class>(x => x.Id == id).FirstOrDefault();
         }
-        public Class GetClassByName(string className) 
+        public Class GetClassByName(string className)
         {
             return _dbContext.Classes.Where<Class>(x => x.Name == className).FirstOrDefault();
         }
@@ -37,7 +31,7 @@ namespace Student_Database_Exam.Repository.Repos
             _dbContext.SaveChanges();
         }
 
-        public List<Class> GetClassesList() 
+        public List<Class> GetClassesList()
         {
             return _dbContext.Classes.Include(x => x.Departments).ToList();
         }
